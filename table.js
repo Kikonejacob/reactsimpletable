@@ -1,4 +1,6 @@
 import React from 'react';
+import TableHeaderComponent for './header';
+import TableBodyComponent for './header';
 
 var
   components=[];
@@ -26,6 +28,10 @@ class TableManager{
 
 var table=react.createClass({
   getInitialState(){
+    
+    return { header:TableHeaderComponent,
+              body:TableBodyComponent,
+              footer:TableBodyComponent}
    
   
     
@@ -35,9 +41,15 @@ var table=react.createClass({
   getHeader(){
     
       
-      TableHeader=tablemgr.getcomponent('column',this.props.headerComponent)
+      TableHeader=this.props.header;
     
-    return()
+    return(<TableHeader columns={this.props.columns} radio={this.props.radio} /> )
+  }
+  
+  getBody(){
+    
+    TableBody=this.props.body;
+    return (<TableBody columns={this.props.columns}  radio={this.props.radio} data={this.props.data} /> )
   }
   
   
@@ -49,9 +61,8 @@ var table=react.createClass({
     
     return(
       
-      <TableHeader  radio={this.props.radio} columns={this.props.columns}  />
-      <TableBody radio={this.props.radio} columns={this.props.columns} />
-      <TableFoot radio={this.props.radio} columns={this.props.columns}  />
+        {this.getheader()}
+        {this.getbody()}
     
      )
 })
